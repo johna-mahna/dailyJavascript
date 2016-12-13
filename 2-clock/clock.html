@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+
+    <div class='text'>Current Time:</div>
+
+    <div class="clock-container">
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    </div>
+
+
+  <style>
+    html {
+      background-color: #f8f8f8;
+      background-size:cover;
+      font-family:'courier new';
+      text-align: center;
+      font-size: 10px;
+      color: #c3c3c3;
+      font-weight: normal;
+    }
+    .text {
+      font-size: 2rem;
+      display: block;
+      position: fixed;
+      width: 100%;
+      margin-top: 20px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .clock-container {
+      font-size: 2rem;
+      display:flex;
+      flex:1;
+      min-height: 100vh;
+      align-items: center;
+    }
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border:20px solid white;
+      border-radius:50%;
+      margin:50px auto;
+      position: relative;
+      padding:2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.05),
+        inset 0 0 0 3px #EFEFEF,
+        0 0 10px rgba(0,0,0,0.05);
+    }
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+      transform-origin: 100%;
+    }
+    .hand {
+      width:40%;
+      height:6px;
+      background:black;
+      position: absolute;
+      top:50%;
+      transform-origin: 124%;
+      transition: all 0.1s;
+      transition-timing-function: cubic-bezier(0, 1.89, 1, 0.71);
+    }
+    .center {
+        width: 1px;
+        height: 1px;
+        background-color: #000;
+        border-radius: 50%;
+        margin: 48% auto;
+        position: relative;
+        padding: 6px;
+        display: -webkit-inline-box;
+    }
+    .min-hand {
+      height: 4px;
+    }
+    .second-hand {
+      height: 1px;
+      background-color: red;
+    }
+  </style>
+
+  <script>
+    //TODO fix glitch at reset
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+    function setDate() {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+      const secondsDegrees = setDegrees(seconds);
+      const minutesDegrees = setDegrees(minutes);
+      const hoursDegrees = setDegrees(hours);
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+      minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
+      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+    }
+    function setDegrees(time){
+      return (((time / 60) * 360) + 90);
+    }
+    setInterval(setDate, 1000);
+  </script>
+</body>
+</html>
