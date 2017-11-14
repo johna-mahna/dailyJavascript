@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="d3/d3.v3.js"></script>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            // datasets
+            var women = [
+              [20, 23],
+              [21, 23],
+              [22, 24],
+              [23, 25],
+              [24, 25],
+              [25, 26],
+              [26, 27],
+              [27, 28],
+              [28, 29],
+              [29, 29],
+              [30, 30],
+              [31, 31],
+              [32, 31],
+              [33, 32],
+              [34, 32],
+              [35, 34],
+              [36, 35],
+              [37, 36],
+              [38, 37],
+              [39, 38],
+              [40, 38],
+              [41, 38],
+              [42, 39],
+              [43, 39],
+              [44, 39],
+              [45, 40],
+              [46, 38],
+              [47, 39],
+              [48, 40],
+              [49, 45],
+              [50, 46],
+            ];
+
+            var men = [
+              [20, 20],
+              [21, 20],
+              [22, 21],
+              [23, 21],
+              [24, 21],
+              [25, 21],
+              [26, 22],
+              [27, 21],
+              [28, 20],
+              [29, 20],
+              [30, 20],
+              [31, 20],
+              [32, 20],
+              [33, 20],
+              [34, 22],
+              [35, 20],
+              [36, 20],
+              [37, 21],
+              [38, 21],
+              [39, 20],
+              [40, 21],
+              [41, 21],
+              [42, 20],
+              [43, 23],
+              [44, 21],
+              [45, 24],
+              [46, 20],
+              [47, 20],
+              [48, 23],
+              [49, 20],
+              [50, 22],
+            ];
+
+            var w = 500;
+            var h = 400;
+            var padding = 20;
+
+            var xScale = d3.scale.linear();
+              xScale.domain([20, 50])
+              xScale.range([padding, w - padding])
+
+            var yScale = d3.scale.linear();
+              yScale.domain([20, 50])
+              yScale.range([padding, h - padding])
+
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+
+            svg.selectAll("text.women")
+              .data(women)
+              .enter()
+              .append("text")
+              .attr("class", "women")
+              .text(function(d) {
+                return d[1];
+              })
+              .attr("x", function(d) {
+                return xScale(d[1])
+              })
+              .attr("y", function(d){
+                return yScale(d[0])
+              })
+              .attr("fill", "blue")
+
+            svg.selectAll("text.age")
+              .data(women)
+              .enter()
+              .append("text")
+              .attr("class", "age")
+              .text(function(d) {
+                return d[0];
+              })
+              .attr("x", function(d) {
+                return xScale(d[0])
+              })
+              .attr("y", function(d){
+                return yScale(d[0])
+              })
+              .attr("fill", "black")
+
+            svg.selectAll("text.men")
+              .data(men)
+              .enter()
+              .append("text")
+              .attr("class", "men")
+              .text(function(d) {
+                return d[1];
+              })
+              .attr("x", function(d) {
+                return xScale(d[1])
+              })
+              .attr("y", function(d){
+                return yScale(d[0])
+              })
+              .attr("fill", "pink")
+
+        </script>
+    </body>
+</html>
