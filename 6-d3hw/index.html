@@ -81,7 +81,7 @@
 
             var w = 500;
             var h = 400;
-            var padding = 20;
+            var padding = 40;
 
             var xScale = d3.scale.linear();
               xScale.domain([20, 50])
@@ -90,6 +90,16 @@
             var yScale = d3.scale.linear();
               yScale.domain([20, 50])
               yScale.range([padding, h - padding])
+
+            var xAxis = d3.svg.axis()
+              .scale(xScale)
+              .orient("bottom")
+              .ticks(4);
+
+            var yAxis = d3.svg.axis()
+              .scale(yScale)
+              .orient("left")
+              .ticks(4);
 
             var svg = d3.select("body")
                 .append("svg")
@@ -143,6 +153,21 @@
                 return yScale(d[0])
               })
               .attr("fill", "pink")
+
+          svg.append("g")
+              .attr("class", "axis")
+              .attr("transform", "translate(0," + (h - padding) + ")")
+              .call(xAxis);
+
+          svg.append("g")
+              .attr("class", "axis")
+              .attr("transform", "translate(" + padding + ", 0 )")
+              .call(yAxis);
+
+          svg.selectAll(".axis path, .axis line")
+            .attr("fill", "none")
+            .attr("stroke", "#999")
+            .attr("shape-rendering", "crispEdges")
 
         </script>
     </body>
